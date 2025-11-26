@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reserva de Merchandising</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f4f5f7; color: #222; }
+    header {
+      background: linear-gradient(135deg, #1f6feb, #3fb950);
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    header h1 { margin: 0 0 0.25rem 0; font-size: 1.6rem; }
+    header p { margin: 0; opacity: 0.9; }
+    .container { max-width: 900px; margin: 1.5rem auto 2.5rem; padding: 0 1rem; }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .fila { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .col { flex: 1 1 180px; }
+    label { font-size: 0.85rem; display: block; margin-bottom: 0.15rem; }
+    input[type="text"], input[type="email"], input[type="number"], select {
+      width: 100%; padding: 0.4rem 0.5rem; border-radius: 6px;
+      border: 1px solid #d1d5db; font-size: 0.9rem;
+    }
+    input[type="number"]{ max-width:90px; }
+    .grid-productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .producto {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .producto-titulo { font-weight: 600; font-size: 0.98rem; }
+    .producto-detalle { font-size: 0.85rem; color: #555; }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.45rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .btn-primario { background: #1f6feb; color: #fff; }
+    .btn-primario:hover { filter: brightness(1.05); }
+    .btn-secundario { background: #e5e7eb; color: #111827; }
+    .btn-secundario:hover { filter: brightness(0.97); }
+    .carrito-tabla {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    .carrito-tabla th, .carrito-tabla td {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.4rem 0.5rem;
+      text-align: left;
+    }
+    .carrito-tabla th { background: #f9fafb; font-weight: 600; }
+    .carrito-vacio { font-size: 0.9rem; color: #6b7280; margin-top: 0.25rem; }
+    .mensaje { margin-top: 0.5rem; font-size: 0.85rem; }
+    .mensaje.ok { color: #15803d; }
+    .mensaje.error { color: #b91c1c; }
+    @media (max-width: 600px){ header h1 { font-size: 1.3rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Reserva de Merchandising</h1>
+    <p>Solo reserva. El pago se realizará en el centro.</p>
+  </header>
+
+  <div class="container">
+    <!-- Datos de la persona -->
+    <section class="card">
+      <h2>Datos de la persona que hace la reserva</h2>
+      <div class="fila">
+        <div class="col">
+          <label for="nombre">Nombre y apellidos *</label>
+          <input type="text" id="nombre" required>
+        </div>
+        <div class="col">
+          <label for="grupo">Curso / Grupo / Departamento</label>
+          <input type="text" id="grupo" placeholder="Ej.: 2º A, Profesorado, AMPA...">
+        </div>
+      </div>
+      <div class="fila">
+        <div class="col">
+          <label for="email">Correo electrónico (opcional)</label>
+          <input type="email" id="email" placeholder="para avisos sobre la reserva">
+        </div>
+      </div>
+      <p style="font-size:0.8rem;color:#6b7280;margin-top:0.5rem;">
+        Esta página solo registra la reserva. El pago y la recogida se harán en el centro.
+      </p>
+    </section>
+
+    <!-- Productos -->
+    <section class="card">
+      <h2>Selecciona productos</h2>
+      <div id="lista-productos" class="grid-productos"></div>
+    </section>
+
+    <!-- Carrito / resumen -->
+    <section class="card">
+      <h2>Resumen de la reserva</h2>
+      <div id="carrito-contenido"></div>
+      <div id="mensaje-servidor" class="mensaje"></div>
+      <div style="margin-top:0.75rem;">
+        <button class="btn btn-primario" id="btn-enviar-reserva">
+          Enviar reserva
+        </button>
+        <button class="btn btn-secundario" id="btn-limpiar" style="margin-left:0.5rem;">
+          Vaciar selección
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // URL de tu Apps Script (ya con la que me has dado)
+    const API_URL = "https://script.google.com/macros/s/AKfycbwJpI_o37Eu0AYvjZ8O_OtPlHniabaTPjBL0249EkhFlQXj5JpIOwAY4uR_zghnwpXV/exec";
+
+    // Catálogo de productos (puedes cambiar nombres, tallas y colores)
+    const productos = [
+      {
+        id: "CAMI-BLANCA",
+        nombre: "Camiseta blanca",
+        descripcion: "Algodón 100%, unisex",
+        tallas: ["XS", "S", "M", "L", "XL"],
+        colores: ["Blanco"]
+      },
+      {
+        id: "CAMI-COLOR",
+        nombre: "Camiseta color",
+        descripcion: "Varios colores, unisex",
+        tallas: ["XS", "S", "M", "L", "XL"],
+        colores: ["Negro", "Rojo", "Azul"]
+      },
+      {
+        id: "SUDADERA",
+        nombre: "Sudadera con capucha",
+        descripcion: "Interior perchado, muy cómoda",
+        tallas: ["S", "M", "L", "XL"],
+        colores: ["Gris", "Negro", "Azul marino"]
+      },
+      {
+        id: "TAZA",
+        nombre: "Taza con logo",
+        descripcion: "Cerámica, apta lavavajillas",
+        tallas: [],
+        colores: ["Blanco"]
+      }
+    ];
+
+    let carrito = [];
+
+    const contenedorProductos = document.getElementById("lista-productos");
+    const contenedorCarrito = document.getElementById("carrito-contenido");
+    const btnEnviar = document.getElementById("btn-enviar-reserva");
+    const btnLimpiar = document.getElementById("btn-limpiar");
+    const mensajeServidor = document.getElementById("mensaje-servidor");
+
+    function pintarProductos() {
+      contenedorProductos.innerHTML = "";
+      productos.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "producto";
+        card.innerHTML = `
+          <div class="producto-titulo">${p.nombre}</div>
+          <div class="producto-detalle">${p.descripcion}</div>
+          <div class="fila" style="margin-top:0.4rem;">
+            ${p.tallas.length ? `
+              <div class="col">
+                <label for="talla-${p.id}">Talla</label>
+                <select id="talla-${p.id}">
+                  ${p.tallas.map(t => `<option value="${t}">${t}</option>`).join("")}
+                </select>
+              </div>` : ""
+            }
+            <div class="col">
+              <label for="color-${p.id}">Color</label>
+              <select id="color-${p.id}">
+                ${p.colores.map(c => `<option value="${c}">${c}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+          <div class="fila" style="margin-top:0.25rem;align-items:flex-end;">
+            <div class="col" style="max-width:110px;">
+              <label for="cantidad-${p.id}">Cantidad</label>
+              <input type="number" id="cantidad-${p.id}" min="1" value="1">
+            </div>
+            <div class="col" style="flex:0 0 auto;">
+              <button class="btn btn-secundario" onclick="agregarAlCarrito('${p.id}')">
+                Añadir a la reserva
+              </button>
+            </div>
+          </div>
+        `;
+        contenedorProductos.appendChild(card);
+      });
+    }
+
+    function agregarAlCarrito(idProducto) {
+      const producto = productos.find(p => p.id === idProducto);
+      if (!producto) return;
+
+      const tallaSelect = document.getElementById(`talla-${idProducto}`);
+      const colorSelect = document.getElementById(`color-${idProducto}`);
+      const cantidadInput = document.getElementById(`cantidad-${idProducto}`);
+
+      const talla = tallaSelect ? tallaSelect.value : "";
+      const color = colorSelect ? colorSelect.value : "";
+      const cantidad = parseInt(cantidadInput.value, 10) || 0;
+
+      if (cantidad <= 0) {
+        alert("La cantidad debe ser al menos 1.");
+        return;
+      }
+
+      const clave = `${idProducto}|${talla}|${color}`;
+      const existente = carrito.find(item => item.clave === clave);
+
+      if (existente) {
+        existente.cantidad += cantidad;
+      } else {
+        carrito.push({
+          clave,
+          id: idProducto,
+          nombre: producto.nombre,
+          talla,
+          color,
+          cantidad
+        });
+      }
+
+      pintarCarrito();
+      cantidadInput.value = 1;
+      mensajeServidor.textContent = "";
+    }
+
+    function eliminarDelCarrito(clave) {
+      carrito = carrito.filter(item => item.clave !== clave);
+      pintarCarrito();
+    }
+
+    function pintarCarrito() {
+      if (carrito.length === 0) {
+        contenedorCarrito.innerHTML = `<div class="carrito-vacio">No hay productos en la reserva.</div>`;
+        return;
+      }
+
+      let html = `
+        <table class="carrito-tabla">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Talla</th>
+              <th>Color</th>
+              <th>Unidades</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      carrito.forEach(item => {
+        html += `
+          <tr>
+            <td>${item.nombre}</td>
+            <td>${item.talla || "-"}</td>
+            <td>${item.color}</td>
+            <td>${item.cantidad}</td>
+            <td>
+              <button class="btn btn-secundario" onclick="eliminarDelCarrito('${item.clave}')">
+                X
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      contenedorCarrito.innerHTML = html;
+    }
+
+    async function enviarReserva() {
+      const nombre = document.getElementById("nombre").value.trim();
+      const grupo  = document.getElementById("grupo").value.trim();
+      const email  = document.getElementById("email").value.trim();
+
+      if (!nombre) {
+        alert("Por favor, rellena al menos el nombre y apellidos.");
+        return;
+      }
+      if (carrito.length === 0) {
+        alert("No hay productos en la reserva.");
+        return;
+      }
+
+      const payload = {
+        cliente: { nombre, grupo, email },
+        carrito
+      };
+
+      mensajeServidor.textContent = "Enviando reserva...";
+      mensajeServidor.className = "mensaje";
+
+      try {
+        const resp = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await resp.json();
+
+        if (data.ok) {
+          mensajeServidor.textContent = "Reserva enviada correctamente. ¡Gracias!";
+          mensajeServidor.className = "mensaje ok";
+          carrito = [];
+          pintarCarrito();
+        } else {
+          mensajeServidor.textContent = "Error al guardar la reserva: " + (data.error || "");
+          mensajeServidor.className = "mensaje error";
+        }
+      } catch (err) {
+        mensajeServidor.textContent = "Error de comunicación con el servidor.";
+        mensajeServidor.className = "mensaje error";
+        console.error(err);
+      }
+    }
+
+    function limpiarTodo() {
+      if (!confirm("¿Seguro que quieres vaciar la selección?")) return;
+      carrito = [];
+      pintarCarrito();
+      mensajeServidor.textContent = "";
+    }
+
+    pintarProductos();
+    pintarCarrito();
+
+    btnEnviar.addEventListener("click", enviarReserva);
+    btnLimpiar.addEventListener("click", limpiarTodo);
+
+    // Exponer funciones para los botones
+    window.agregarAlCarrito = agregarAlCarrito;
+    window.eliminarDelCarrito = eliminarDelCarrito;
+  </script>
+</body>
+</html>
