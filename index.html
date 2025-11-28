@@ -5,682 +5,559 @@
   <title>Reserva de Merchandising</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Fuente más profesional -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Fuente con un toque clásico pero legible -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --color-bg: #050816;
-      --color-bg-soft: rgba(15, 23, 42, 0.92);
-      --color-card: rgba(15, 23, 42, 0.95);
-      --color-accent: #3b82f6;
-      --color-accent-soft: rgba(59, 130, 246, 0.12);
-      --color-accent-strong: #22c55e;
-      --color-text: #e5e7eb;
-      --color-muted: #9ca3af;
+      --color-marron-oscuro: #3f2a1b;
+      --color-marron-medio: #6b4b2c;
+      --color-marron-claro: #d1b992;
+      --color-crema: #f5eddc;
+      --color-crema-suave: #fbf7ec;
+      --color-verde: #4b7f4b;
+      --color-verde-suave: #e0f0e0;
+      --color-texto: #2b2116;
+      --color-muted: #7b6b58;
       --radius-lg: 18px;
+      --radius-md: 12px;
       --radius-full: 999px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.65);
-      --border-subtle: 1px solid rgba(148, 163, 184, 0.22);
+      --shadow-suave: 0 16px 35px rgba(36, 22, 10, 0.18);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #1d4ed8 0, transparent 55%),
-                  radial-gradient(circle at bottom right, #22c55e 0, transparent 50%),
-                  var(--color-bg);
-      color: var(--color-text);
-      min-height: 100%;
+      font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(219, 185, 140, 0.6), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(170, 200, 150, 0.7), transparent 60%),
+        #e5dac6;
+      color: var(--color-texto);
+      min-height: 100vh;
     }
 
-    body {
-      display: flex;
-      flex-direction: column;
+    body { display: flex; flex-direction: column; }
+
+    .paper-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)),
+        radial-gradient(circle at 0 0, rgba(255,255,255,0.3), transparent 50%),
+        radial-gradient(circle at 100% 0, rgba(255,255,255,0.2), transparent 50%);
+      background-blend-mode: multiply;
     }
 
-    /* Barra superior */
+    /* NAVBAR MADERA */
     .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      backdrop-filter: blur(20px);
-      background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
-      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+      position: sticky; top: 0; z-index: 30;
+      background: linear-gradient(135deg, #5b3b22, #3c2617);
+      color: #fdf7ec;
+      box-shadow: 0 4px 12px rgba(28,16,7,0.6);
     }
 
     .navbar-inner {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 0.6rem 1.25rem;
+      padding: 0.7rem 1.25rem;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 1rem;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
+    .brand { display: flex; align-items: center; gap: 0.7rem; }
 
     .brand-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 11px;
-      background: radial-gradient(circle at 30% 30%, #22c55e, #3b82f6);
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.7), 0 0 20px rgba(59, 130, 246, 0.75);
+      width: 38px; height: 38px; border-radius: 8px;
+      background:
+        radial-gradient(circle at 30% 20%, #facc6b, transparent 55%),
+        radial-gradient(circle at 70% 80%, #4b7f4b, transparent 55%);
+      border: 2px solid rgba(243,232,207,0.8);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.15);
     }
 
-    .brand-text-main {
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      font-size: 0.98rem;
+    .brand-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
     }
 
-    .brand-text-sub {
-      font-size: 0.75rem;
-      color: var(--color-muted);
+    .brand-sub {
+      font-size: 0.8rem;
+      color: #f3e5ca;
     }
 
     .navbar-pill {
-      padding: 0.25rem 0.8rem;
+      padding: 0.35rem 1rem;
       border-radius: var(--radius-full);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
-      font-size: 0.75rem;
+      border: 1px solid rgba(250,238,214,0.8);
+      background: rgba(86,55,30,0.9);
+      font-size: 0.78rem;
       display: flex;
       align-items: center;
-      gap: 0.35rem;
-      color: var(--color-muted);
+      gap: 0.4rem;
+      color: #fefae6;
     }
 
     .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+      width: 9px; height: 9px; border-radius: 999px;
+      background: #7dd37d;
+      box-shadow: 0 0 0 3px rgba(125,211,125,0.5);
     }
 
-    /* Contenido principal */
-    .page {
-      flex: 1;
-    }
-
+    /* HERO */
     .hero {
       max-width: 1120px;
-      margin: 1.5rem auto 0.25rem;
+      margin: 1.3rem auto 1rem;
       padding: 0 1.25rem;
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
       gap: 1.5rem;
       align-items: center;
     }
 
-    .hero-main-title {
-      font-size: clamp(1.9rem, 2.4vw + 1.1rem, 2.4rem);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      margin: 0 0 0.4rem;
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.9rem, 2.4vw + 1.1rem, 2.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 0.5rem;
+      color: var(--color-marron-oscuro);
     }
 
-    .hero-main-title span {
-      background: linear-gradient(to right, #3b82f6, #22c55e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    .hero-title span { color: var(--color-verde); }
 
-    .hero-subtitle {
+    .hero-text {
+      margin: 0 0 0.8rem;
       color: var(--color-muted);
-      font-size: 0.92rem;
-      max-width: 32rem;
-      line-height: 1.6;
-      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+      max-width: 34rem;
     }
 
-    .hero-badge-row {
-      display: flex;
-      flex-wrap: wrap;
+    .hero-steps {
+      display: flex; flex-wrap: wrap;
       gap: 0.5rem;
-      margin-bottom: 0.7rem;
-      font-size: 0.78rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.8rem;
     }
 
-    .hero-badge {
-      border-radius: var(--radius-full);
-      padding: 0.25rem 0.7rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.85);
+    .hero-step {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      color: var(--color-muted);
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-full);
+      background: var(--color-crema-suave);
+      border: 1px dashed #c0a885;
+      color: var(--color-marron-medio);
     }
 
-    .hero-badge strong {
-      color: var(--color-text);
-      font-weight: 500;
+    .hero-step span {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 18px; height: 18px;
+      border-radius: 999px;
+      background: var(--color-marron-medio);
+      color: #fdf4dd;
+      font-size: 0.7rem;
+      font-weight: 700;
     }
 
-    .hero-footer {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      align-items: center;
+    .hero-note {
       font-size: 0.8rem;
       color: var(--color-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
     }
 
-    .hero-step-chip {
-      border-radius: var(--radius-full);
-      padding: 0.2rem 0.65rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .hero-step-chip span {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      background: var(--color-accent-soft);
-      border: 1px solid rgba(59, 130, 246, 0.7);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.68rem;
-      color: var(--color-accent);
+    .hero-note-icon {
+      font-size: 1rem;
+      line-height: 1;
+      margin-top: 0.1rem;
     }
 
     .hero-card {
+      background: var(--color-crema);
       border-radius: var(--radius-lg);
-      border: var(--border-subtle);
-      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--shadow-suave);
+      border: 1px solid rgba(139,111,78,0.4);
       padding: 1rem;
       position: relative;
       overflow: hidden;
     }
 
     .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 20% 0, rgba(59, 130, 246, 0.23), transparent 55%),
-        radial-gradient(circle at 80% 100%, rgba(34, 197, 94, 0.25), transparent 55%);
-      opacity: 0.7;
-      pointer-events: none;
+      content:""; position:absolute; inset:0;
+      background-image: radial-gradient(circle at top, rgba(255,255,255,0.4), transparent 55%);
+      opacity: .6; pointer-events:none;
     }
 
-    .hero-card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-card-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
+    .hero-card-inner { position: relative; z-index: 1; }
+    .hero-card-title { font-weight: 600; font-size: 0.95rem; margin-bottom: .4rem; color: var(--color-marron-oscuro); }
 
     .hero-card-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 0 0 0.6rem;
-      font-size: 0.8rem;
-      color: var(--color-muted);
+      list-style:none; padding-left:0; margin:0 0 .5rem;
+      font-size: .8rem; color: var(--color-muted);
     }
-
-    .hero-card-list li {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .hero-card-bullet {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--color-accent-soft);
-      border: 1px solid rgba(59, 130, 246, 0.75);
-    }
-
-    .hero-card-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.8rem;
-      border-radius: var(--radius-full);
-      padding: 0.25rem 0.7rem;
-      background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--color-muted);
-    }
-
-    .hero-card-badge span {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
-    }
+    .hero-card-list li { display:flex; gap:.4rem; margin-bottom:.25rem; }
+    .hero-bullet { margin-top:.2rem; width:6px; height:6px; border-radius:999px; background:var(--color-marron-medio); }
 
     .hero-card-highlight {
-      margin-top: 0.6rem;
-      font-size: 0.78rem;
-      color: var(--color-muted);
-      border-radius: 12px;
-      padding: 0.4rem 0.6rem;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px dashed rgba(148, 163, 184, 0.6);
+      font-size:.8rem; margin-top:.4rem; padding:.5rem .7rem;
+      border-radius:var(--radius-md);
+      background:#fdf7e7;
+      border:1px dashed #c4aa80;
+      color:var(--color-marron-oscuro);
     }
 
-    /* Contenedor principal de tarjetas */
+    /* MAIN */
     .main {
-      max-width: 1120px;
-      margin: 0.75rem auto 2.5rem;
-      padding: 0 1.25rem 2.5rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 1.5rem;
-      align-items: flex-start;
+      max-width:1120px;
+      margin:0 auto 2.5rem;
+      padding:0 1.25rem 2.5rem;
+      display:grid;
+      grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+      gap:1.5rem;
+      align-items:flex-start;
     }
 
     .card {
-      background: var(--color-card);
-      border-radius: var(--radius-lg);
-      border: var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 1.1rem 1.25rem;
+      background:var(--color-crema-suave);
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(139,111,78,0.45);
+      box-shadow:var(--shadow-suave);
+      padding:1.1rem 1.25rem;
+      position:relative;
+      overflow:hidden;
     }
 
+    .card::before {
+      content:""; position:absolute; inset:0;
+      background-image:linear-gradient(
+        120deg,
+        rgba(255,255,255,0.25),
+        transparent 40%,
+        transparent 60%,
+        rgba(255,255,255,0.18)
+      );
+      opacity:.4; pointer-events:none;
+    }
+
+    .card-inner { position:relative; z-index:1; }
+
     .card-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 0.75rem;
-      margin-bottom: 0.8rem;
+      display:flex; justify-content:space-between; align-items:baseline;
+      gap:.75rem; margin-bottom:.8rem;
     }
 
     .card-title {
-      font-size: 0.98rem;
-      font-weight: 600;
+      font-family:"Playfair Display",serif;
+      font-size:1rem; font-weight:600;
+      color:var(--color-marron-oscuro);
     }
 
-    .card-sub {
-      font-size: 0.78rem;
-      color: var(--color-muted);
-    }
+    .card-sub { font-size:.8rem; color:var(--color-muted); }
 
     .card-tag {
-      border-radius: var(--radius-full);
-      padding: 0.15rem 0.6rem;
-      font-size: 0.75rem;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--color-muted);
+      font-size:.75rem; padding:.2rem .7rem;
+      border-radius:var(--radius-full);
+      background:#f5e7c9;
+      color:var(--color-marron-oscuro);
+      border:1px dashed rgba(120,86,46,0.8);
+      white-space:nowrap;
     }
 
     .input-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 0.6rem;
+      display:flex; flex-wrap:wrap;
+      gap:.75rem; margin-bottom:.6rem;
     }
 
-    .input-col {
-      flex: 1 1 180px;
-    }
+    .input-col { flex:1 1 180px; }
 
     .input-label {
-      font-size: 0.8rem;
-      margin-bottom: 0.15rem;
-      color: var(--color-muted);
+      font-size:.8rem; margin-bottom:.15rem;
+      color:var(--color-muted); display:block;
     }
 
     .input-control {
-      width: 100%;
-      padding: 0.42rem 0.55rem;
-      border-radius: 9px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--color-text);
-      font-size: 0.85rem;
-      outline: none;
-      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      width:100%; padding:.42rem .55rem;
+      border-radius:var(--radius-md);
+      border:1px solid #c9b395;
+      background:#fdf8ec;
+      color:var(--color-texto);
+      font-size:.85rem;
+      outline:none;
+      transition:border .15s ease, box-shadow .15s ease, background .15s ease;
     }
 
-    .input-control::placeholder {
-      color: rgba(148, 163, 184, 0.8);
-    }
+    .input-control::placeholder { color:#b39b7c; }
 
     .input-control:focus {
-      border-color: var(--color-accent);
-      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.6);
-      background: rgba(15, 23, 42, 0.98);
+      border-color:var(--color-verde);
+      box-shadow:0 0 0 1px rgba(75,127,75,0.4);
+      background:#fffaf0;
     }
 
-    .hint {
-      font-size: 0.75rem;
-      color: var(--color-muted);
-      margin-top: 0.2rem;
-    }
+    .hint { font-size:.75rem; color:var(--color-muted); margin-top:.2rem; }
 
-    /* Productos */
+    /* PRODUCTOS */
     .grid-productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.85rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:1rem;
     }
 
     .producto {
-      border-radius: 14px;
-      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.16), transparent 55%),
-                  radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      padding: 0.85rem 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      position: relative;
-      overflow: hidden;
+      border-radius:var(--radius-md);
+      border:1px solid rgba(139,111,78,0.4);
+      background:var(--color-crema-suave);
+      display:flex; flex-direction:column;
+      overflow:hidden;
+      transition:box-shadow .15s ease, transform .1s ease, border-color .15s ease;
     }
 
-    .producto::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.35), transparent 55%);
-      opacity: 0;
-      transition: opacity 0.18s ease-out;
-      pointer-events: none;
+    .producto:hover {
+      box-shadow:0 16px 35px rgba(57,36,18,0.25);
+      transform:translateY(-2px);
+      border-color:rgba(139,111,78,0.8);
     }
 
-    .producto:hover::after {
-      opacity: 0.6;
+    .producto-img-wrapper {
+      width:100%; height:150px;
+      overflow:hidden; position:relative;
+      background:#e6d5b6;
+    }
+
+    .producto-img {
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      filter: saturate(1.05);
+      transition: transform .2s ease;
+    }
+
+    .producto:hover .producto-img {
+      transform: scale(1.03);
+    }
+
+    .producto-body {
+      padding:0.7rem 0.8rem 0.8rem;
+      display:flex; flex-direction:column; gap:0.4rem;
+      flex:1;
     }
 
     .producto-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 0.5rem;
+      display:flex; justify-content:space-between; align-items:baseline;
+      gap:.5rem;
     }
 
     .producto-titulo {
-      font-weight: 600;
-      font-size: 0.92rem;
+      font-size:.95rem; font-weight:600;
+      color:var(--color-marron-oscuro);
     }
 
     .producto-chip {
-      font-size: 0.7rem;
-      padding: 0.1rem 0.5rem;
-      border-radius: var(--radius-full);
-      background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.75);
-      color: var(--color-muted);
+      font-size:.72rem; padding:.1rem .5rem;
+      border-radius:var(--radius-full);
+      background:var(--color-verde-suave);
+      color:var(--color-verde);
+      border:1px solid rgba(75,127,75,0.4);
     }
 
-    .producto-detalle {
-      font-size: 0.78rem;
-      color: var(--color-muted);
-    }
+    .producto-detalle { font-size:.8rem; color:var(--color-muted); }
 
     .producto-footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 0.3rem;
+      display:flex; justify-content:flex-end;
+      margin-top:.25rem;
     }
 
-    /* Botones */
+    /* BOTONES */
     .btn {
-      border: none;
-      border-radius: var(--radius-full);
-      padding: 0.45rem 1.1rem;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, filter 0.1s ease;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .btn span.icon-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--color-accent-soft);
-      border: 1px solid rgba(59, 130, 246, 0.9);
+      border:none;
+      border-radius:var(--radius-full);
+      padding:.45rem 1.1rem;
+      font-size:.85rem;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:.35rem;
+      transition:transform .1s ease, box-shadow .1s ease, background .1s ease, filter .1s ease;
+      font-weight:600; white-space:nowrap;
     }
 
     .btn-primario {
-      background: linear-gradient(135deg, #3b82f6, #22c55e);
-      color: #0b1120;
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.65);
+      background:linear-gradient(135deg,#4b7f4b,#3f6a3f);
+      color:#fdf7ec;
+      box-shadow:0 10px 22px rgba(48,82,48,0.4);
     }
 
     .btn-primario:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-      box-shadow: 0 16px 35px rgba(59, 130, 246, 0.9);
-    }
-
-    .btn-primario:active {
-      transform: translateY(0);
-      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.7);
+      transform:translateY(-1px);
+      filter:brightness(1.03);
+      box-shadow:0 14px 30px rgba(48,82,48,0.5);
     }
 
     .btn-secundario {
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      color: var(--color-muted);
+      background:#f7ebd7;
+      border:1px solid #c0a27a;
+      color:var(--color-marron-medio);
     }
 
     .btn-secundario:hover {
-      transform: translateY(-1px);
-      background: rgba(15, 23, 42, 1);
-      border-color: rgba(148, 163, 184, 1);
+      background:#fff3dd;
+      border-color:#a17d4c;
+      transform:translateY(-1px);
     }
 
-    .btn-secundario:active {
-      transform: translateY(0);
+    .btn-icon-dot {
+      width:10px; height:10px; border-radius:999px;
+      background:#d9f99d;
+      border:1px solid #4b7f4b;
     }
 
-    /* Tabla resumen */
+    /* CARRITO */
     .carrito-tabla {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.82rem;
-      margin-top: 0.45rem;
-      border-radius: 10px;
-      overflow: hidden;
+      width:100%;
+      border-collapse:collapse;
+      font-size:.82rem;
+      margin-top:.45rem;
+      border-radius:10px;
+      overflow:hidden;
     }
 
-    .carrito-tabla thead {
-      background: rgba(15, 23, 42, 0.96);
-    }
+    .carrito-tabla thead { background:#f2e3c6; }
 
-    .carrito-tabla th,
-    .carrito-tabla td {
-      padding: 0.35rem 0.5rem;
-      text-align: left;
-      border-bottom: 1px solid rgba(30, 41, 59, 0.95);
+    .carrito-tabla th, .carrito-tabla td {
+      padding:.4rem .5rem;
+      text-align:left;
+      border-bottom:1px solid rgba(177,149,110,0.4);
     }
 
     .carrito-tabla th {
-      font-weight: 600;
-      color: var(--color-muted);
-      font-size: 0.78rem;
+      font-weight:600;
+      color:var(--color-marron-medio);
+      font-size:.78rem;
     }
 
-    .carrito-tabla tbody tr:hover {
-      background: rgba(15, 23, 42, 0.9);
-    }
+    .carrito-tabla tbody tr:hover { background:#fdf3dd; }
 
     .carrito-vacio {
-      font-size: 0.82rem;
-      color: var(--color-muted);
-      padding: 0.3rem 0;
+      font-size:.82rem;
+      color:var(--color-muted);
+      padding:.3rem 0;
     }
 
-    .mensaje {
-      margin-top: 0.5rem;
-      font-size: 0.8rem;
-    }
-
-    .mensaje.ok {
-      color: #4ade80;
-    }
-
-    .mensaje.error {
-      color: #f97373;
-    }
+    .mensaje { margin-top:.5rem; font-size:.8rem; }
+    .mensaje.ok { color:var(--color-verde); }
+    .mensaje.error { color:#b91c1c; }
 
     .acciones-resumen {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 0.7rem;
+      display:flex; flex-wrap:wrap;
+      gap:.6rem; margin-top:.7rem;
+      align-items:center;
     }
 
     .acciones-nota {
-      font-size: 0.78rem;
-      color: var(--color-muted);
-      flex: 1 1 200px;
-      max-width: 320px;
+      font-size:.78rem;
+      color:var(--color-muted);
+      flex:1 1 200px;
+      max-width:320px;
     }
 
-    /* Footer */
+    /* FOOTER */
     .footer {
-      max-width: 1120px;
-      margin: 0 auto 1.25rem;
-      padding: 0 1.25rem;
-      font-size: 0.75rem;
-      color: var(--color-muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      opacity: 0.85;
+      max-width:1120px;
+      margin:0 auto 1.4rem;
+      padding:0 1.25rem;
+      font-size:.78rem;
+      color:var(--color-muted);
+      display:flex;
+      justify-content:space-between;
+      gap:.5rem;
+      flex-wrap:wrap;
     }
 
-    @media (max-width: 880px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .hero-card {
-        order: -1;
-      }
-      .main {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    @media (max-width:880px) {
+      .hero { grid-template-columns:minmax(0,1fr); }
+      .main { grid-template-columns:minmax(0,1fr); }
     }
 
-    @media (max-width: 600px) {
-      .navbar-inner {
-        padding-inline: 1rem;
-      }
-      .hero,
-      .main {
-        padding-inline: 1rem;
+    @media (max-width:600px) {
+      .navbar-inner, .hero, .main, .footer {
+        padding-inline:1rem;
       }
     }
   </style>
 </head>
-<body>
+<body class="paper-bg">
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="navbar-inner">
       <div class="brand">
         <div class="brand-logo"></div>
         <div>
-          <div class="brand-text-main">Merchandising del centro</div>
-          <div class="brand-text-sub">Sistema de reservas online</div>
+          <div class="brand-title">Merchandising del centro</div>
+          <div class="brand-sub">Reserva rural · Ambiente de pueblo</div>
         </div>
       </div>
       <div class="navbar-pill">
         <div class="pill-dot"></div>
-        Reservas abiertas · Pago presencial
+        Reservas abiertas · Pago presencial en el centro
       </div>
     </div>
   </nav>
 
-  <div class="page">
-    <!-- HERO / PRESENTACIÓN -->
-    <section class="hero">
-      <div>
-        <h1 class="hero-main-title">
-          Reserva tu <span>merchandising oficial</span> en unos segundos
-        </h1>
-        <p class="hero-subtitle">
-          Completa tus datos, elige los artículos que quieres y envía la reserva. El pago y la entrega se realizarán
-          en el centro en las fechas que se comuniquen.
-        </p>
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1 class="hero-title">
+        Reserva tu <span>merchandising</span> con sabor rural
+      </h1>
+      <p class="hero-text">
+        Como los carteles de las fiestas del pueblo, pero en versión online. Rellena tus datos, escoge las prendas y
+        envía la reserva. El pago y la entrega se harán presencialmente.
+      </p>
 
-        <div class="hero-badge-row">
-          <div class="hero-badge">
-            <strong>1.</strong> Rellena tus datos
-          </div>
-          <div class="hero-badge">
-            <strong>2.</strong> Elige productos y cantidades
-          </div>
-          <div class="hero-badge">
-            <strong>3.</strong> Envía la reserva
-          </div>
-        </div>
-
-        <div class="hero-footer">
-          <div class="hero-step-chip">
-            <span>i</span>
-            Solo reservas · No se paga online
-          </div>
-          <div>
-            Revisa bien tallas y cantidades antes de enviar. Si necesitas cambiar algo, podrás hacer otra reserva.
-          </div>
-        </div>
+      <div class="hero-steps">
+        <div class="hero-step"><span>1</span>Escribe tus datos</div>
+        <div class="hero-step"><span>2</span>Elige productos</div>
+        <div class="hero-step"><span>3</span>Envía la reserva</div>
       </div>
 
-      <div class="hero-card">
-        <div class="hero-card-inner">
-          <div class="hero-card-title">Resumen rápido</div>
-          <ul class="hero-card-list">
-            <li><div class="hero-card-bullet"></div> Tus datos se usan solo para gestionar tu pedido.</li>
-            <li><div class="hero-card-bullet"></div> Puedes reservar varios artículos en un único envío.</li>
-            <li><div class="hero-card-bullet"></div> El estado final del pedido se confirmará en el centro.</li>
-          </ul>
-          <div class="hero-card-badge">
-            <span></span> Sistema conectado a hoja de cálculo interna
-          </div>
-          <div class="hero-card-highlight">
-            Consejo: si eres tutor/a y quieres hacer un pedido conjunto de clase, indica el grupo claramente
-            (por ejemplo “Tutor 2ºB”).
-          </div>
+      <div class="hero-note">
+        <div class="hero-note-icon">🪵</div>
+        <div>
+          Esta web solo apunta tu pedido, como si lo dejaras anotado en la libreta del bar del pueblo.
+          <br />Revisa tallas y cantidades antes de mandar la reserva.
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- CUERPO PRINCIPAL -->
-    <main class="main">
-      <!-- Datos de la persona -->
-      <section class="card">
+    <div class="hero-card">
+      <div class="hero-card-inner">
+        <div class="hero-card-title">Información rápida</div>
+        <ul class="hero-card-list">
+          <li><span class="hero-bullet"></span> Tus datos solo se usan para poder darte tu pedido.</li>
+          <li><span class="hero-bullet"></span> Puedes añadir varias prendas en una sola reserva.</li>
+          <li><span class="hero-bullet"></span> Si te equivocas, puedes enviar otra reserva corrigiendo.</li>
+        </ul>
+        <div class="hero-card-highlight">
+          Consejo: indica bien tu curso/grupo para que sea fácil encontrarte (ej.: “2º ESO B”, “Profesorado”, “AMPA”…).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- Datos personales -->
+    <section class="card">
+      <div class="card-inner">
         <div class="card-header">
           <div>
             <div class="card-title">Tus datos</div>
-            <div class="card-sub">Usaremos esta información solo para localizar tu reserva.</div>
+            <div class="card-sub">Para saber a quién entregar el pedido cuando llegue el día.</div>
           </div>
           <div class="card-tag">Paso 1 · Datos personales</div>
         </div>
@@ -707,21 +584,23 @@
               type="email"
               id="email"
               class="input-control"
-              placeholder="Para enviar avisos si son necesarios"
+              placeholder="Por si hay que avisarte de algo"
             />
-            <div class="hint">Si lo dejas en blanco, la comunicación se hará por el canal habitual del centro.</div>
+            <div class="hint">Si no lo pones, se te avisará por los canales habituales del centro.</div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Resumen de la reserva -->
-      <section class="card">
+    <!-- Resumen de la reserva -->
+    <section class="card">
+      <div class="card-inner">
         <div class="card-header">
           <div>
             <div class="card-title">Resumen de la reserva</div>
-            <div class="card-sub">Aquí verás los artículos añadidos y podrás eliminarlos antes de enviar.</div>
+            <div class="card-sub">Lo que has ido añadiendo, como la cuenta en la barra.</div>
           </div>
-          <div class="card-tag">Paso 3 · Revisión y envío</div>
+          <div class="card-tag">Paso 3 · Revisar y enviar</div>
         </div>
 
         <div id="carrito-contenido"></div>
@@ -730,74 +609,78 @@
         <div class="acciones-resumen">
           <div>
             <button class="btn btn-primario" id="btn-enviar-reserva">
-              <span class="icon-dot"></span>
+              <div class="btn-icon-dot"></div>
               Enviar reserva
             </button>
-            <button class="btn btn-secundario" id="btn-limpiar" style="margin-left: 0.4rem">
+            <button class="btn btn-secundario" id="btn-limpiar" style="margin-left:0.4rem;">
               Vaciar selección
             </button>
           </div>
           <div class="acciones-nota">
-            Al pulsar “Enviar reserva” los datos se guardarán en el sistema interno del centro. No se realiza ningún
-            pago en esta web.
+            De momento la reserva se guarda solo en esta página (simulación). El responsable del proyecto te indicará
+            cómo se gestionará el registro definitivo.
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Selección de productos -->
-      <section class="card">
+    <!-- Catálogo de productos -->
+    <section class="card">
+      <div class="card-inner">
         <div class="card-header">
           <div>
             <div class="card-title">Catálogo de productos</div>
-            <div class="card-sub">Elige talla, color y cantidad, y añade cada producto a la reserva.</div>
+            <div class="card-sub">Con fotos reales de los artículos del merchandising.</div>
           </div>
-          <div class="card-tag">Paso 2 · Selección de artículos</div>
+          <div class="card-tag">Paso 2 · Seleccionar artículos</div>
         </div>
 
         <div id="lista-productos" class="grid-productos"></div>
-      </section>
-    </main>
-  </div>
+      </div>
+    </section>
+  </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    <div>© <span id="anio-footer"></span> · Sistema de reservas de merchandising.</div>
-    <div>Pago y recogida: exclusivamente de forma presencial según las indicaciones del centro.</div>
+    <div>© <span id="anio-footer"></span> · Sistema de reservas de merchandising del centro.</div>
+    <div>Pago y recogida: de forma presencial, según las fechas e indicaciones del centro.</div>
   </footer>
 
   <script>
-    // URL de tu Apps Script (la que me diste)
-    const API_URL =
-      "https://script.google.com/macros/s/AKfycbwJpI_o37Eu0AYvjZ8O_OtPlHniabaTPjBL0249EkhFlQXj5JpIOwAY4uR_zghnwpXV/exec";
-
-    // Catálogo de productos: cambia nombres/tallas/colores si quieres
+    // 🔹 Aquí solo usamos la web en modo "simulación" (sin servidor).
+    // Más adelante, si quieres, se puede volver a conectar a Apps Script.
     const productos = [
       {
         id: "CAMI-BLANCA",
         nombre: "Camiseta blanca",
-        descripcion: "Camiseta unisex de algodón, con logotipo frontal.",
+        descripcion: "Camiseta unisex de algodón con el logo del centro.",
         tallas: ["XS", "S", "M", "L", "XL"],
-        colores: ["Blanco"]
+        colores: ["Blanco"],
+        imagen: "img/camiseta_blanca.jpg"
       },
       {
         id: "CAMI-COLOR",
-        nombre: "Camiseta color",
-        descripcion: "Camiseta unisex en varios colores, con logotipo del centro.",
+        nombre: "Camiseta de color",
+        descripcion: "Camiseta unisex en varios colores, perfecta para las fiestas del pueblo.",
         tallas: ["XS", "S", "M", "L", "XL"],
-        colores: ["Negro", "Rojo", "Azul"]
+        colores: ["Negro", "Rojo", "Azul"],
+        imagen: "img/camiseta_color.jpg"
       },
       {
         id: "SUDADERA",
         nombre: "Sudadera con capucha",
-        descripcion: "Sudadera con capucha, interior perchado, muy cómoda.",
+        descripcion: "Sudadera calentita para las mañanas frescas del pueblo.",
         tallas: ["S", "M", "L", "XL"],
-        colores: ["Gris", "Negro", "Azul marino"]
+        colores: ["Gris", "Negro", "Azul marino"],
+        imagen: "img/sudadera.jpg"
       },
       {
         id: "TAZA",
         nombre: "Taza con logo",
-        descripcion: "Taza de cerámica con el logotipo del centro (apta para lavavajillas).",
+        descripcion: "Taza de cerámica con el logotipo del centro, para el café o la leche.",
         tallas: [],
-        colores: ["Blanco"]
+        colores: ["Blanco"],
+        imagen: "img/taza.jpg"
       }
     ];
 
@@ -818,41 +701,46 @@
         const card = document.createElement("div");
         card.className = "producto";
         card.innerHTML = `
-          <div class="producto-header">
-            <div class="producto-titulo">${p.nombre}</div>
-            <div class="producto-chip">Reserva</div>
+          <div class="producto-img-wrapper">
+            <img src="${p.imagen}" alt="${p.nombre}" class="producto-img">
           </div>
-          <div class="producto-detalle">${p.descripcion}</div>
-          <div class="input-row" style="margin-top:0.4rem;">
-            ${
-              p.tallas.length
-                ? `
+          <div class="producto-body">
+            <div class="producto-header">
+              <div class="producto-titulo">${p.nombre}</div>
+              <div class="producto-chip">Reserva</div>
+            </div>
+            <div class="producto-detalle">${p.descripcion}</div>
+            <div class="input-row" style="margin-top:0.4rem;">
+              ${
+                p.tallas.length
+                  ? `
+                <div class="input-col">
+                  <label for="talla-${p.id}" class="input-label">Talla</label>
+                  <select id="talla-${p.id}" class="input-control">
+                    ${p.tallas.map((t) => `<option value="${t}">${t}</option>`).join("")}
+                  </select>
+                </div>
+                `
+                  : ""
+              }
               <div class="input-col">
-                <label for="talla-${p.id}" class="input-label">Talla</label>
-                <select id="talla-${p.id}" class="input-control">
-                  ${p.tallas.map((t) => `<option value="${t}">${t}</option>`).join("")}
+                <label for="color-${p.id}" class="input-label">Color</label>
+                <select id="color-${p.id}" class="input-control">
+                  ${p.colores.map((c) => `<option value="${c}">${c}</option>`).join("")}
                 </select>
               </div>
-              `
-                : ""
-            }
-            <div class="input-col">
-              <label for="color-${p.id}" class="input-label">Color</label>
-              <select id="color-${p.id}" class="input-control">
-                ${p.colores.map((c) => `<option value="${c}">${c}</option>`).join("")}
-              </select>
             </div>
-          </div>
-          <div class="input-row" style="margin-top:0.25rem;align-items:flex-end;">
-            <div class="input-col" style="max-width:110px;">
-              <label for="cantidad-${p.id}" class="input-label">Cantidad</label>
-              <input type="number" id="cantidad-${p.id}" class="input-control" min="1" value="1" />
-            </div>
-            <div class="producto-footer">
-              <button class="btn btn-secundario" onclick="agregarAlCarrito('${p.id}')">
-                <span class="icon-dot"></span>
-                Añadir a la reserva
-              </button>
+            <div class="input-row" style="margin-top:0.25rem;align-items:flex-end;">
+              <div class="input-col" style="max-width:110px;">
+                <label for="cantidad-${p.id}" class="input-label">Cantidad</label>
+                <input type="number" id="cantidad-${p.id}" class="input-control" min="1" value="1" />
+              </div>
+              <div class="producto-footer">
+                <button class="btn btn-secundario" onclick="agregarAlCarrito('${p.id}')">
+                  <div class="btn-icon-dot"></div>
+                  Añadir a la reserva
+                </button>
+              </div>
             </div>
           </div>
         `;
@@ -944,10 +832,26 @@
       contenedorCarrito.innerHTML = html;
     }
 
-    async function enviarReserva() {
+    function generarResumenTexto() {
       const nombre = document.getElementById("nombre").value.trim();
       const grupo = document.getElementById("grupo").value.trim();
       const email = document.getElementById("email").value.trim();
+
+      let texto = `Reserva de merchandising\n\n`;
+      texto += `Nombre: ${nombre}\n`;
+      texto += `Grupo/Departamento: ${grupo || "-"}\n`;
+      texto += `Email: ${email || "-"}\n\n`;
+      texto += `Artículos:\n`;
+
+      carrito.forEach((item) => {
+        texto += `- ${item.nombre} | Talla: ${item.talla || "-"} | Color: ${item.color} | Cantidad: ${item.cantidad}\n`;
+      });
+
+      return texto;
+    }
+
+    function enviarReservaSimulada() {
+      const nombre = document.getElementById("nombre").value.trim();
 
       if (!nombre) {
         alert("Por favor, rellena al menos el nombre y apellidos.");
@@ -958,37 +862,18 @@
         return;
       }
 
-      const payload = {
-        cliente: { nombre, grupo, email },
-        carrito
-      };
+      const resumen = generarResumenTexto();
+      console.log("RESERVA (simulación):\n" + resumen);
 
-      mensajeServidor.textContent = "Enviando reserva...";
-      mensajeServidor.className = "mensaje";
+      mensajeServidor.textContent =
+        "Reserva registrada en la página (simulación). Copia los datos o haz una captura para guardarla.";
+      mensajeServidor.className = "mensaje ok";
 
-      try {
-        const resp = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
+      alert("Reserva simulada.\n\nPuedes hacer captura de pantalla o copiar los datos que aparecen en la consola del navegador.");
 
-        const data = await resp.json();
-
-        if (data.ok) {
-          mensajeServidor.textContent = "Reserva enviada correctamente. ¡Gracias!";
-          mensajeServidor.className = "mensaje ok";
-          carrito = [];
-          pintarCarrito();
-        } else {
-          mensajeServidor.textContent = "Error al guardar la reserva: " + (data.error || "");
-          mensajeServidor.className = "mensaje error";
-        }
-      } catch (err) {
-        mensajeServidor.textContent = "Error de comunicación con el servidor.";
-        mensajeServidor.className = "mensaje error";
-        console.error(err);
-      }
+      // Si quieres que se limpie después:
+      // carrito = [];
+      // pintarCarrito();
     }
 
     function limpiarTodo() {
@@ -1002,11 +887,9 @@
     // Inicialización
     pintarProductos();
     pintarCarrito();
-
-    btnEnviar.addEventListener("click", enviarReserva);
+    btnEnviar.addEventListener("click", enviarReservaSimulada);
     btnLimpiar.addEventListener("click", limpiarTodo);
 
-    // Exponer funciones para botones inline
     window.agregarAlCarrito = agregarAlCarrito;
     window.eliminarDelCarrito = eliminarDelCarrito;
   </script>
