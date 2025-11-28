@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -32,8 +32,8 @@
       padding: 0;
       font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(219, 185, 140, 0.6), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(170, 200, 150, 0.7), transparent 60%),
+        radial-gradient(circle at top left, rgba(219,185,140,0.6), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(170,200,150,0.7), transparent 60%),
         #e5dac6;
       color: var(--color-texto);
       min-height: 100vh;
@@ -647,8 +647,7 @@
   </footer>
 
   <script>
-    // 🔹 Aquí solo usamos la web en modo "simulación" (sin servidor).
-    // Más adelante, si quieres, se puede volver a conectar a Apps Script.
+    // Catálogo de productos con rutas a la carpeta img/
     const productos = [
       {
         id: "CAMI-BLANCA",
@@ -866,14 +865,10 @@
       console.log("RESERVA (simulación):\n" + resumen);
 
       mensajeServidor.textContent =
-        "Reserva registrada en la página (simulación). Copia los datos o haz una captura para guardarla.";
+        "Reserva registrada en la página (simulación). Haz captura de pantalla o copia los datos si quieres guardarlos.";
       mensajeServidor.className = "mensaje ok";
 
-      alert("Reserva simulada.\n\nPuedes hacer captura de pantalla o copiar los datos que aparecen en la consola del navegador.");
-
-      // Si quieres que se limpie después:
-      // carrito = [];
-      // pintarCarrito();
+      alert("Reserva simulada.\n\nLa reserva se ha mostrado en la consola del navegador (F12) y en la propia página.");
     }
 
     function limpiarTodo() {
