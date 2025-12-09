@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel Admin - Reservas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3efe7;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #4b7f4b;
+      padding: 1rem;
+      color: white;
+      text-align: center;
+      font-size: 1.4rem;
+    }
+    main { max-width: 900px; margin: auto; padding: 1rem; }
+    .card {
+      background: white;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th { background: #e8e2d4; }
+    .totales div { margin: 0.4rem 0; }
+    button {
+      background: #4b7f4b;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+    button:hover { background: #3b6a3b; }
+  </style>
+</head>
+<body>
+
+<header>Panel Administrador – Reservas de Merchandising</header>
+
+<main>
+
+  <div class="card">
+    <h2>📥 Cargar datos</h2>
+    <p>Pulsa para cargar todas las reservas de Google Sheets.</p>
+    <button onclick="cargarDatos()">Cargar Reservas</button>
+  </div>
+
+  <div class="card">
+    <h2>🔎 Filtros</h2>
+    <label>Producto:</label>
+    <select id="filtroProducto" onchange="filtrar()">
+      <option value="">Todos</option>
+    </select>
+
+    <label>Talla:</label>
+    <select id="filtroTalla" onchange="filtrar()">
+      <option value="">Todas</option>
+    </select>
+
+    <label>Color:</label>
+    <select id="filtroColor" onchange="filtrar()">
+      <option value="">Todos</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h2>📄 Reservas</h2>
+    <table id="tabla">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Nombre</th>
+          <th>Grupo</th>
+          <th>Producto</th>
+          <th>Talla</th>
+          <th>Color</th>
+          <th>Cantidad</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card totales">
+    <h2>📊 Totales para la serigrafía</h2>
+    <div id="totalProductos"></div>
+    <div id="totalTallas"></div>
+    <div id="totalColores"></div>
+  </div>
+
+</main>
+
+<script>
+const SHEET_URL =
+  "https://api.sheetmonkey.io/api/v1/mzzHbz9dBwc4dwd6SUAshi";
+
+let reservas = [];
+let reservasFiltradas = [];
+
+async function cargarDatos() {
+  const resp = await fetch(SHEET_URL);
+  const data = await resp.json();
+
+  reservas = data.reverse();
+  reservasFiltradas = [...reservas];
+
+  poblarFiltros();
+  renderTabla();
+  calcularTotales();
+}
+
+function poblarFiltros() {
+  const productos = new Set(reservas.map(r => r.Producto));
+  const tallas = new Set(reservas.map(r => r.Talla));
+  const colores = new Set(reservas.map(r => r.Color));
+
+  llenarSelect("filtroProducto", productos);
+  llenarSelect("filtroTalla", tallas);
+  llenarSelect("filtroColor", colores);
+}
+
+function llenarSelect(id, valores) {
+  const sel = document.getElementById(id);
+  sel.innerHTML = `<option value="">Todos</option>`;
+  valores.forEach(v => {
+    if (v && v.trim() !== "")
+      sel.innerHTML += `<option value="${v}">${v}</option>`;
+  });
+}
+
+function filtrar() {
+  const p = document.getElementById("filtroProducto").value;
+  const t = document.getElementById("filtroTalla").value;
+  const c = document.getElementById("filtroColor").value;
+
+  reservasFiltradas = reservas.filter(r =>
+    (p === "" || r.Producto === p) &&
+    (t === "" || r.Talla === t) &&
+    (c === "" || r.Color === c)
+  );
+
+  renderTabla();
+  calcularTotales();
+}
+
+function renderTabla() {
+  const tbody = document.querySelector("#tabla tbody");
+  tbody.innerHTML = "";
+
+  reservasFiltradas.forEach(r => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${r.FechaHora}</td>
+        <td>${r.Nombre}</td>
+        <td>${r.Grupo}</td>
+        <td>${r.Producto}</td>
+        <td>${r.Talla}</td>
+        <td>${r.Color}</td>
+        <td>${r.Cantidad}</td>
+      </tr>
+    `;
+  });
+}
+
+function calcularTotales() {
+  const totalProductos = contar("Producto");
+  const totalTallas = contar("Talla");
+  const totalColores = contar("Color");
+
+  document.getElementById("totalProductos").innerHTML =
+    `<b>Por producto:</b><br>${formatearTotales(totalProductos)}`;
+
+  document.getElementById("totalTallas").innerHTML =
+    `<b>Por talla:</b><br>${formatearTotales(totalTallas)}`;
+
+  document.getElementById("totalColores").innerHTML =
+    `<b>Por color:</b><br>${formatearTotales(totalColores)}`;
+}
+
+function contar(campo) {
+  const mapa = {};
+  reservasFiltradas.forEach(r => {
+    const clave = r[campo] || "-";
+    mapa[clave] = (mapa[clave] || 0) + Number(r.Cantidad);
+  });
+  return mapa;
+}
+
+function formatearTotales(obj) {
+  return Object.entries(obj)
+    .map(([k, v]) => `${k}: <b>${v}</b>`)
+    .join("<br>");
+}
+</script>
+
+</body>
+</html>
