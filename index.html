@@ -1,11 +1,10 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <title>Reserva de Merchandising</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Fuente con un toque clásico pero legible -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
 
   <style>
@@ -24,13 +23,12 @@
       --radius-full: 999px;
       --shadow-suave: 0 16px 35px rgba(36, 22, 10, 0.18);
     }
-
     * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
       padding: 0;
-      font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Nunito", system-ui, sans-serif;
       background:
         radial-gradient(circle at top left, rgba(219,185,140,0.6), transparent 55%),
         radial-gradient(circle at bottom right, rgba(170,200,150,0.7), transparent 60%),
@@ -38,7 +36,6 @@
       color: var(--color-texto);
       min-height: 100vh;
     }
-
     body { display: flex; flex-direction: column; }
 
     .paper-bg {
@@ -49,45 +46,27 @@
       background-blend-mode: multiply;
     }
 
-    /* NAVBAR MADERA */
     .navbar {
       position: sticky; top: 0; z-index: 30;
       background: linear-gradient(135deg, #5b3b22, #3c2617);
       color: #fdf7ec;
       box-shadow: 0 4px 12px rgba(28,16,7,0.6);
     }
-
     .navbar-inner {
-      max-width: 1120px;
-      margin: 0 auto;
+      max-width: 1120px; margin: 0 auto;
       padding: 0.7rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
     }
-
     .brand { display: flex; align-items: center; gap: 0.7rem; }
-
     .brand-logo {
       width: 38px; height: 38px; border-radius: 8px;
       background:
         radial-gradient(circle at 30% 20%, #facc6b, transparent 55%),
         radial-gradient(circle at 70% 80%, #4b7f4b, transparent 55%);
       border: 2px solid rgba(243,232,207,0.8);
-      box-shadow: 0 0 0 3px rgba(0,0,0,0.15);
     }
-
-    .brand-title {
-      font-family: "Playfair Display", serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.04em;
-    }
-
-    .brand-sub {
-      font-size: 0.8rem;
-      color: #f3e5ca;
-    }
+    .brand-title { font-family: "Playfair Display", serif; font-size: 1.1rem; }
+    .brand-sub { font-size: 0.8rem; color: #f3e5ca; }
 
     .navbar-pill {
       padding: 0.35rem 1rem;
@@ -95,588 +74,229 @@
       border: 1px solid rgba(250,238,214,0.8);
       background: rgba(86,55,30,0.9);
       font-size: 0.78rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+      display: flex; align-items: center; gap: 0.4rem;
       color: #fefae6;
     }
-
     .pill-dot {
       width: 9px; height: 9px; border-radius: 999px;
       background: #7dd37d;
-      box-shadow: 0 0 0 3px rgba(125,211,125,0.5);
     }
 
-    /* HERO */
     .hero {
       max-width: 1120px;
       margin: 1.3rem auto 1rem;
       padding: 0 1.25rem;
-      display: grid;
-      grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
+      display: grid; grid-template-columns: 1.4fr 1fr;
       gap: 1.5rem;
       align-items: center;
     }
-
     .hero-title {
       font-family: "Playfair Display", serif;
-      font-size: clamp(1.9rem, 2.4vw + 1.1rem, 2.5rem);
-      font-weight: 600;
-      line-height: 1.2;
-      margin: 0 0 0.5rem;
+      font-size: 2rem;
       color: var(--color-marron-oscuro);
     }
-
     .hero-title span { color: var(--color-verde); }
-
-    .hero-text {
-      margin: 0 0 0.8rem;
-      color: var(--color-muted);
-      font-size: 0.95rem;
-      max-width: 34rem;
-    }
-
-    .hero-steps {
-      display: flex; flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 0.8rem;
-      font-size: 0.8rem;
-    }
-
-    .hero-step {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.75rem;
-      border-radius: var(--radius-full);
-      background: var(--color-crema-suave);
-      border: 1px dashed #c0a885;
-      color: var(--color-marron-medio);
-    }
-
-    .hero-step span {
-      display: inline-flex;
-      align-items: center; justify-content: center;
-      width: 18px; height: 18px;
-      border-radius: 999px;
-      background: var(--color-marron-medio);
-      color: #fdf4dd;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-
-    .hero-note {
-      font-size: 0.8rem;
-      color: var(--color-muted);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.4rem;
-    }
-
-    .hero-note-icon {
-      font-size: 1rem;
-      line-height: 1;
-      margin-top: 0.1rem;
-    }
-
-    .hero-card {
-      background: var(--color-crema);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-suave);
-      border: 1px solid rgba(139,111,78,0.4);
-      padding: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content:""; position:absolute; inset:0;
-      background-image: radial-gradient(circle at top, rgba(255,255,255,0.4), transparent 55%);
-      opacity: .6; pointer-events:none;
-    }
-
-    .hero-card-inner { position: relative; z-index: 1; }
-    .hero-card-title { font-weight: 600; font-size: 0.95rem; margin-bottom: .4rem; color: var(--color-marron-oscuro); }
-
-    .hero-card-list {
-      list-style:none; padding-left:0; margin:0 0 .5rem;
-      font-size: .8rem; color: var(--color-muted);
-    }
-    .hero-card-list li { display:flex; gap:.4rem; margin-bottom:.25rem; }
-    .hero-bullet { margin-top:.2rem; width:6px; height:6px; border-radius:999px; background:var(--color-marron-medio); }
-
-    .hero-card-highlight {
-      font-size:.8rem; margin-top:.4rem; padding:.5rem .7rem;
-      border-radius:var(--radius-md);
-      background:#fdf7e7;
-      border:1px dashed #c4aa80;
-      color:var(--color-marron-oscuro);
-    }
-
-    /* MAIN */
-    .main {
-      max-width:1120px;
-      margin:0 auto 2.5rem;
-      padding:0 1.25rem 2.5rem;
-      display:grid;
-      grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
-      gap:1.5rem;
-      align-items:flex-start;
-    }
+    .hero-text { color: var(--color-muted); }
 
     .card {
-      background:var(--color-crema-suave);
-      border-radius:var(--radius-lg);
-      border:1px solid rgba(139,111,78,0.45);
-      box-shadow:var(--shadow-suave);
-      padding:1.1rem 1.25rem;
-      position:relative;
-      overflow:hidden;
+      background: var(--color-crema-suave);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-suave);
+      border: 1px solid rgba(139,111,78,0.45);
     }
-
-    .card::before {
-      content:""; position:absolute; inset:0;
-      background-image:linear-gradient(
-        120deg,
-        rgba(255,255,255,0.25),
-        transparent 40%,
-        transparent 60%,
-        rgba(255,255,255,0.18)
-      );
-      opacity:.4; pointer-events:none;
-    }
-
-    .card-inner { position:relative; z-index:1; }
-
-    .card-header {
-      display:flex; justify-content:space-between; align-items:baseline;
-      gap:.75rem; margin-bottom:.8rem;
-    }
-
     .card-title {
-      font-family:"Playfair Display",serif;
-      font-size:1rem; font-weight:600;
-      color:var(--color-marron-oscuro);
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; color: var(--color-marron-oscuro);
     }
+    .card-sub { color: var(--color-muted); font-size: 0.85rem; }
 
-    .card-sub { font-size:.8rem; color:var(--color-muted); }
-
-    .card-tag {
-      font-size:.75rem; padding:.2rem .7rem;
-      border-radius:var(--radius-full);
-      background:#f5e7c9;
-      color:var(--color-marron-oscuro);
-      border:1px dashed rgba(120,86,46,0.8);
-      white-space:nowrap;
-    }
-
-    .input-row {
-      display:flex; flex-wrap:wrap;
-      gap:.75rem; margin-bottom:.6rem;
-    }
-
-    .input-col { flex:1 1 180px; }
-
-    .input-label {
-      font-size:.8rem; margin-bottom:.15rem;
-      color:var(--color-muted); display:block;
-    }
+    .input-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .input-col { flex: 1 1 200px; }
+    .input-label { font-size: 0.8rem; color: var(--color-muted); }
 
     .input-control {
-      width:100%; padding:.42rem .55rem;
-      border-radius:var(--radius-md);
-      border:1px solid #c9b395;
-      background:#fdf8ec;
-      color:var(--color-texto);
-      font-size:.85rem;
-      outline:none;
-      transition:border .15s ease, box-shadow .15s ease, background .15s ease;
-    }
-
-    .input-control::placeholder { color:#b39b7c; }
-
-    .input-control:focus {
-      border-color:var(--color-verde);
-      box-shadow:0 0 0 1px rgba(75,127,75,0.4);
-      background:#fffaf0;
-    }
-
-    .hint { font-size:.75rem; color:var(--color-muted); margin-top:.2rem; }
-
-    /* PRODUCTOS */
-    .grid-productos {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:1rem;
+      width: 100%; padding: 0.45rem;
+      border-radius: var(--radius-md);
+      border: 1px solid #c9b395;
+      background: #fffaf0;
+      font-size: 0.85rem;
     }
 
     .producto {
-      border-radius:var(--radius-md);
-      border:1px solid rgba(139,111,78,0.4);
-      background:var(--color-crema-suave);
-      display:flex; flex-direction:column;
-      overflow:hidden;
-      transition:box-shadow .15s ease, transform .1s ease, border-color .15s ease;
+      background: var(--color-crema);
+      border: 1px solid rgba(139,111,78,0.35);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-suave);
+    }
+    .producto-img-wrapper { height: 160px; overflow: hidden; }
+    .producto-img { width: 100%; height: 100%; object-fit: cover; }
+    .producto-body { padding: 0.8rem; }
+    .producto-titulo { font-weight: 600; }
+
+    .grid-productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 1rem;
     }
 
-    .producto:hover {
-      box-shadow:0 16px 35px rgba(57,36,18,0.25);
-      transform:translateY(-2px);
-      border-color:rgba(139,111,78,0.8);
-    }
+    .carrito-tabla { width: 100%; font-size: 0.85rem; }
+    .carrito-tabla th { background: #f2e3c6; }
 
-    .producto-img-wrapper {
-      width:100%; height:150px;
-      overflow:hidden; position:relative;
-      background:#e6d5b6;
-    }
-
-    .producto-img {
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-      filter: saturate(1.05);
-      transition: transform .2s ease;
-    }
-
-    .producto:hover .producto-img {
-      transform: scale(1.03);
-    }
-
-    .producto-body {
-      padding:0.7rem 0.8rem 0.8rem;
-      display:flex; flex-direction:column; gap:0.4rem;
-      flex:1;
-    }
-
-    .producto-header {
-      display:flex; justify-content:space-between; align-items:baseline;
-      gap:.5rem;
-    }
-
-    .producto-titulo {
-      font-size:.95rem; font-weight:600;
-      color:var(--color-marron-oscuro);
-    }
-
-    .producto-chip {
-      font-size:.72rem; padding:.1rem .5rem;
-      border-radius:var(--radius-full);
-      background:var(--color-verde-suave);
-      color:var(--color-verde);
-      border:1px solid rgba(75,127,75,0.4);
-    }
-
-    .producto-detalle { font-size:.8rem; color:var(--color-muted); }
-
-    .producto-footer {
-      display:flex; justify-content:flex-end;
-      margin-top:.25rem;
-    }
-
-    /* BOTONES */
     .btn {
-      border:none;
-      border-radius:var(--radius-full);
-      padding:.45rem 1.1rem;
-      font-size:.85rem;
-      cursor:pointer;
-      display:inline-flex; align-items:center; gap:.35rem;
-      transition:transform .1s ease, box-shadow .1s ease, background .1s ease, filter .1s ease;
-      font-weight:600; white-space:nowrap;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
     }
-
     .btn-primario {
-      background:linear-gradient(135deg,#4b7f4b,#3f6a3f);
-      color:#fdf7ec;
-      box-shadow:0 10px 22px rgba(48,82,48,0.4);
+      background: var(--color-verde);
+      color: #fff;
     }
-
-    .btn-primario:hover {
-      transform:translateY(-1px);
-      filter:brightness(1.03);
-      box-shadow:0 14px 30px rgba(48,82,48,0.5);
-    }
-
     .btn-secundario {
-      background:#f7ebd7;
-      border:1px solid #c0a27a;
-      color:var(--color-marron-medio);
+      background: #f6e9cf;
+      border: 1px solid #c6ac82;
     }
+    .mensaje { margin-top: 0.5rem; }
+    .ok { color: green; }
+    .error { color: red; }
 
-    .btn-secundario:hover {
-      background:#fff3dd;
-      border-color:#a17d4c;
-      transform:translateY(-1px);
+    .main {
+      max-width: 1120px;
+      margin: 0 auto 2rem;
+      padding: 0 1.25rem;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.5rem;
     }
-
-    .btn-icon-dot {
-      width:10px; height:10px; border-radius:999px;
-      background:#d9f99d;
-      border:1px solid #4b7f4b;
-    }
-
-    /* CARRITO */
-    .carrito-tabla {
-      width:100%;
-      border-collapse:collapse;
-      font-size:.82rem;
-      margin-top:.45rem;
-      border-radius:10px;
-      overflow:hidden;
-    }
-
-    .carrito-tabla thead { background:#f2e3c6; }
-
-    .carrito-tabla th, .carrito-tabla td {
-      padding:.4rem .5rem;
-      text-align:left;
-      border-bottom:1px solid rgba(177,149,110,0.4);
-    }
-
-    .carrito-tabla th {
-      font-weight:600;
-      color:var(--color-marron-medio);
-      font-size:.78rem;
-    }
-
-    .carrito-tabla tbody tr:hover { background:#fdf3dd; }
-
-    .carrito-vacio {
-      font-size:.82rem;
-      color:var(--color-muted);
-      padding:.3rem 0;
-    }
-
-    .mensaje { margin-top:.5rem; font-size:.8rem; }
-    .mensaje.ok { color:var(--color-verde); }
-    .mensaje.error { color:#b91c1c; }
-
-    .acciones-resumen {
-      display:flex; flex-wrap:wrap;
-      gap:.6rem; margin-top:.7rem;
-      align-items:center;
-    }
-
-    .acciones-nota {
-      font-size:.78rem;
-      color:var(--color-muted);
-      flex:1 1 200px;
-      max-width:320px;
-    }
-
-    /* FOOTER */
-    .footer {
-      max-width:1120px;
-      margin:0 auto 1.4rem;
-      padding:0 1.25rem;
-      font-size:.78rem;
-      color:var(--color-muted);
-      display:flex;
-      justify-content:space-between;
-      gap:.5rem;
-      flex-wrap:wrap;
-    }
-
-    @media (max-width:880px) {
-      .hero { grid-template-columns:minmax(0,1fr); }
-      .main { grid-template-columns:minmax(0,1fr); }
-    }
-
-    @media (max-width:600px) {
-      .navbar-inner, .hero, .main, .footer {
-        padding-inline:1rem;
+    @media(max-width: 900px) {
+      .main, .hero {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
+
 <body class="paper-bg">
-  <!-- NAVBAR -->
+
   <nav class="navbar">
     <div class="navbar-inner">
       <div class="brand">
         <div class="brand-logo"></div>
         <div>
-          <div class="brand-title">Merchandising del centro</div>
-          <div class="brand-sub">Reserva rural · Ambiente de pueblo</div>
+          <div class="brand-title">Merchandising rural</div>
+          <div class="brand-sub">Reserva sencilla · Ambiente de pueblo</div>
         </div>
       </div>
       <div class="navbar-pill">
         <div class="pill-dot"></div>
-        Reservas abiertas · Pago presencial en el centro
+        Reservas abiertas
       </div>
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <div>
-      <h1 class="hero-title">
-        Reserva tu <span>merchandising</span> con sabor rural
-      </h1>
+      <h1 class="hero-title">Reserva tu <span>merchandising</span> rural</h1>
       <p class="hero-text">
-        Como los carteles de las fiestas del pueblo, pero en versión online. Rellena tus datos, escoge las prendas y
-        envía la reserva. El pago y la entrega se harán presencialmente.
+        Completa tus datos, elige los productos y envía tu reserva. La recogida y el pago se realizarán de forma presencial.
       </p>
-
-      <div class="hero-steps">
-        <div class="hero-step"><span>1</span>Escribe tus datos</div>
-        <div class="hero-step"><span>2</span>Elige productos</div>
-        <div class="hero-step"><span>3</span>Envía la reserva</div>
-      </div>
-
-      <div class="hero-note">
-        <div class="hero-note-icon">🪵</div>
-        <div>
-          Esta web solo apunta tu pedido, como si lo dejaras anotado en la libreta del bar del pueblo.
-          <br />Revisa tallas y cantidades antes de mandar la reserva.
-        </div>
-      </div>
     </div>
 
-    <div class="hero-card">
-      <div class="hero-card-inner">
-        <div class="hero-card-title">Información rápida</div>
-        <ul class="hero-card-list">
-          <li><span class="hero-bullet"></span> Tus datos solo se usan para poder darte tu pedido.</li>
-          <li><span class="hero-bullet"></span> Puedes añadir varias prendas en una sola reserva.</li>
-          <li><span class="hero-bullet"></span> Si te equivocas, puedes enviar otra reserva corrigiendo.</li>
-        </ul>
-        <div class="hero-card-highlight">
-          Consejo: indica bien tu curso/grupo para que sea fácil encontrarte (ej.: “2º ESO B”, “Profesorado”, “AMPA”…).
-        </div>
+    <div class="card">
+      <div class="card-title">Cómo funciona</div>
+      <div class="card-sub">
+        1. Rellena tus datos <br>
+        2. Añade productos al carrito <br>
+        3. Envía tu reserva a Google Sheets
       </div>
     </div>
   </section>
 
-  <!-- MAIN -->
   <main class="main">
+
     <!-- Datos personales -->
     <section class="card">
-      <div class="card-inner">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Tus datos</div>
-            <div class="card-sub">Para saber a quién entregar el pedido cuando llegue el día.</div>
-          </div>
-          <div class="card-tag">Paso 1 · Datos personales</div>
+      <div class="card-title">Tus datos</div>
+      <div class="card-sub">Necesarios para identificar tu pedido</div>
+
+      <div class="input-row" style="margin-top:0.7rem;">
+        <div class="input-col">
+          <label class="input-label">Nombre *</label>
+          <input id="nombre" class="input-control" placeholder="Nombre y apellidos">
         </div>
 
-        <div class="input-row">
-          <div class="input-col">
-            <label for="nombre" class="input-label">Nombre y apellidos *</label>
-            <input type="text" id="nombre" class="input-control" placeholder="Nombre y apellidos" required />
-          </div>
-          <div class="input-col">
-            <label for="grupo" class="input-label">Curso / Grupo / Departamento</label>
-            <input
-              type="text"
-              id="grupo"
-              class="input-control"
-              placeholder="Ej.: 2º A, Bachillerato, Profesorado..."
-            />
-          </div>
+        <div class="input-col">
+          <label class="input-label">Grupo / Curso</label>
+          <input id="grupo" class="input-control" placeholder="Ej.: 2ºESO A">
         </div>
-        <div class="input-row">
-          <div class="input-col">
-            <label for="email" class="input-label">Correo electrónico (opcional)</label>
-            <input
-              type="email"
-              id="email"
-              class="input-control"
-              placeholder="Por si hay que avisarte de algo"
-            />
-            <div class="hint">Si no lo pones, se te avisará por los canales habituales del centro.</div>
-          </div>
+      </div>
+
+      <div class="input-row">
+        <div class="input-col">
+          <label class="input-label">Email</label>
+          <input id="email" class="input-control" placeholder="Opcional">
         </div>
       </div>
     </section>
 
-    <!-- Resumen de la reserva -->
+    <!-- Carrito -->
     <section class="card">
-      <div class="card-inner">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Resumen de la reserva</div>
-            <div class="card-sub">Lo que has ido añadiendo, como la cuenta en la barra.</div>
-          </div>
-          <div class="card-tag">Paso 3 · Revisar y enviar</div>
-        </div>
+      <div class="card-title">Resumen de la reserva</div>
+      <div id="carrito-contenido" style="margin-top:0.7rem;"></div>
 
-        <div id="carrito-contenido"></div>
-        <div id="mensaje-servidor" class="mensaje"></div>
+      <div id="mensaje-servidor" class="mensaje"></div>
 
-        <div class="acciones-resumen">
-          <div>
-            <button class="btn btn-primario" id="btn-enviar-reserva">
-              <div class="btn-icon-dot"></div>
-              Enviar reserva
-            </button>
-            <button class="btn btn-secundario" id="btn-limpiar" style="margin-left:0.4rem;">
-              Vaciar selección
-            </button>
-          </div>
-          <div class="acciones-nota">
-            De momento la reserva se guarda solo en esta página (simulación). El responsable del proyecto te indicará
-            cómo se gestionará el registro definitivo.
-          </div>
-        </div>
+      <div style="margin-top:1rem;">
+        <button class="btn btn-primario" id="btn-enviar-reserva">Enviar reserva</button>
+        <button class="btn btn-secundario" id="btn-limpiar">Vaciar selección</button>
       </div>
     </section>
 
-    <!-- Catálogo de productos -->
-    <section class="card">
-      <div class="card-inner">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Catálogo de productos</div>
-            <div class="card-sub">Con fotos reales de los artículos del merchandising.</div>
-          </div>
-          <div class="card-tag">Paso 2 · Seleccionar artículos</div>
-        </div>
+    <!-- Productos -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-title">Catálogo de productos</div>
+      <div class="card-sub">Haz clic para añadirlos al carrito</div>
 
-        <div id="lista-productos" class="grid-productos"></div>
-      </div>
+      <div id="lista-productos" class="grid-productos" style="margin-top:1rem;"></div>
     </section>
+
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div>© <span id="anio-footer"></span> · Sistema de reservas de merchandising del centro.</div>
-    <div>Pago y recogida: de forma presencial, según las fechas e indicaciones del centro.</div>
-  </footer>
-
   <script>
-    // Catálogo de productos con rutas a la carpeta img/
+    const API_URL = "https://api.sheetmonkey.io/form/mzzHbz9dBwc4dwd6SUAshi";
+
     const productos = [
       {
         id: "CAMI-BLANCA",
         nombre: "Camiseta blanca",
-        descripcion: "Camiseta unisex de algodón con el logo del centro.",
-        tallas: ["XS", "S", "M", "L", "XL"],
+        descripcion: "Camiseta unisex con el logo del proyecto.",
+        tallas: ["XS","S","M","L","XL"],
         colores: ["Blanco"],
         imagen: "img/camiseta_blanca.jpg"
       },
       {
         id: "CAMI-COLOR",
         nombre: "Camiseta de color",
-        descripcion: "Camiseta unisex en varios colores, perfecta para las fiestas del pueblo.",
-        tallas: ["XS", "S", "M", "L", "XL"],
-        colores: ["Negro", "Rojo", "Azul"],
+        descripcion: "Disponible en varios colores.",
+        tallas: ["XS","S","M","L","XL"],
+        colores: ["Negro","Rojo","Azul"],
         imagen: "img/camiseta_color.jpg"
       },
       {
         id: "SUDADERA",
         nombre: "Sudadera con capucha",
-        descripcion: "Sudadera calentita para las mañanas frescas del pueblo.",
-        tallas: ["S", "M", "L", "XL"],
-        colores: ["Gris", "Negro", "Azul marino"],
+        descripcion: "Perfecta para el invierno.",
+        tallas: ["S","M","L","XL"],
+        colores: ["Gris","Negro","Azul marino"],
         imagen: "img/sudadera.jpg"
       },
       {
         id: "TAZA",
-        nombre: "Taza con logo",
-        descripcion: "Taza de cerámica con el logotipo del centro, para el café o la leche.",
+        nombre: "Taza",
+        descripcion: "Taza de cerámica con diseño rural.",
         tallas: [],
         colores: ["Blanco"],
         imagen: "img/taza.jpg"
@@ -687,113 +307,83 @@
 
     const contenedorProductos = document.getElementById("lista-productos");
     const contenedorCarrito = document.getElementById("carrito-contenido");
+    const mensajeServidor = document.getElementById("mensaje-servidor");
     const btnEnviar = document.getElementById("btn-enviar-reserva");
     const btnLimpiar = document.getElementById("btn-limpiar");
-    const mensajeServidor = document.getElementById("mensaje-servidor");
-    const anioFooter = document.getElementById("anio-footer");
-
-    anioFooter.textContent = new Date().getFullYear();
 
     function pintarProductos() {
       contenedorProductos.innerHTML = "";
-      productos.forEach((p) => {
+
+      productos.forEach(p => {
         const card = document.createElement("div");
         card.className = "producto";
+
         card.innerHTML = `
           <div class="producto-img-wrapper">
-            <img src="${p.imagen}" alt="${p.nombre}" class="producto-img">
+            <img src="${p.imagen}" class="producto-img">
           </div>
           <div class="producto-body">
-            <div class="producto-header">
-              <div class="producto-titulo">${p.nombre}</div>
-              <div class="producto-chip">Reserva</div>
-            </div>
+            <div class="producto-titulo">${p.nombre}</div>
             <div class="producto-detalle">${p.descripcion}</div>
+
             <div class="input-row" style="margin-top:0.4rem;">
-              ${
-                p.tallas.length
-                  ? `
-                <div class="input-col">
-                  <label for="talla-${p.id}" class="input-label">Talla</label>
-                  <select id="talla-${p.id}" class="input-control">
-                    ${p.tallas.map((t) => `<option value="${t}">${t}</option>`).join("")}
-                  </select>
-                </div>
-                `
-                  : ""
-              }
+              ${p.tallas.length ? `
               <div class="input-col">
-                <label for="color-${p.id}" class="input-label">Color</label>
+                <label class="input-label">Talla</label>
+                <select id="talla-${p.id}" class="input-control">
+                  ${p.tallas.map(t => `<option>${t}</option>`).join("")}
+                </select>
+              </div>
+              ` : ""}
+
+              <div class="input-col">
+                <label class="input-label">Color</label>
                 <select id="color-${p.id}" class="input-control">
-                  ${p.colores.map((c) => `<option value="${c}">${c}</option>`).join("")}
+                  ${p.colores.map(c => `<option>${c}</option>`).join("")}
                 </select>
               </div>
             </div>
-            <div class="input-row" style="margin-top:0.25rem;align-items:flex-end;">
-              <div class="input-col" style="max-width:110px;">
-                <label for="cantidad-${p.id}" class="input-label">Cantidad</label>
-                <input type="number" id="cantidad-${p.id}" class="input-control" min="1" value="1" />
+
+            <div class="input-row" style="margin-top:0.4rem;">
+              <div class="input-col" style="max-width:120px;">
+                <label class="input-label">Cantidad</label>
+                <input type="number" class="input-control" id="cantidad-${p.id}" value="1" min="1">
               </div>
-              <div class="producto-footer">
-                <button class="btn btn-secundario" onclick="agregarAlCarrito('${p.id}')">
-                  <div class="btn-icon-dot"></div>
-                  Añadir a la reserva
-                </button>
+
+              <div>
+                <button class="btn btn-secundario" onclick="agregarAlCarrito('${p.id}')">Añadir</button>
               </div>
             </div>
           </div>
         `;
+
         contenedorProductos.appendChild(card);
       });
     }
 
-    function agregarAlCarrito(idProducto) {
-      const producto = productos.find((p) => p.id === idProducto);
-      if (!producto) return;
+    function agregarAlCarrito(id) {
+      const producto = productos.find(p => p.id === id);
 
-      const tallaSelect = document.getElementById(`talla-${idProducto}`);
-      const colorSelect = document.getElementById(`color-${idProducto}`);
-      const cantidadInput = document.getElementById(`cantidad-${idProducto}`);
+      const talla = document.getElementById(`talla-${id}`)?.value || "";
+      const color = document.getElementById(`color-${id}`).value;
+      const cantidad = parseInt(document.getElementById(`cantidad-${id}`).value);
 
-      const talla = tallaSelect ? tallaSelect.value : "";
-      const color = colorSelect ? colorSelect.value : "";
-      const cantidad = parseInt(cantidadInput.value, 10) || 0;
+      const item = {
+        id,
+        nombre: producto.nombre,
+        talla,
+        color,
+        cantidad
+      };
 
-      if (cantidad <= 0) {
-        alert("La cantidad debe ser al menos 1.");
-        return;
-      }
-
-      const clave = `${idProducto}|${talla}|${color}`;
-      const existente = carrito.find((item) => item.clave === clave);
-
-      if (existente) {
-        existente.cantidad += cantidad;
-      } else {
-        carrito.push({
-          clave,
-          id: idProducto,
-          nombre: producto.nombre,
-          talla,
-          color,
-          cantidad
-        });
-      }
-
+      carrito.push(item);
       pintarCarrito();
-      cantidadInput.value = 1;
       mensajeServidor.textContent = "";
-      mensajeServidor.className = "mensaje";
-    }
-
-    function eliminarDelCarrito(clave) {
-      carrito = carrito.filter((item) => item.clave !== clave);
-      pintarCarrito();
     }
 
     function pintarCarrito() {
       if (carrito.length === 0) {
-        contenedorCarrito.innerHTML = `<div class="carrito-vacio">No hay productos en la reserva todavía.</div>`;
+        contenedorCarrito.innerHTML = "<div>No hay productos aún.</div>";
         return;
       }
 
@@ -805,88 +395,83 @@
               <th>Talla</th>
               <th>Color</th>
               <th>Unidades</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
       `;
 
-      carrito.forEach((item) => {
+      carrito.forEach(item => {
         html += `
           <tr>
             <td>${item.nombre}</td>
             <td>${item.talla || "-"}</td>
             <td>${item.color}</td>
             <td>${item.cantidad}</td>
-            <td>
-              <button class="btn btn-secundario" onclick="eliminarDelCarrito('${item.clave}')">
-                Quitar
-              </button>
-            </td>
           </tr>
         `;
       });
 
-      html += `</tbody></table>`;
+      html += "</tbody></table>";
+
       contenedorCarrito.innerHTML = html;
     }
 
-    function generarResumenTexto() {
+    async function enviarReserva() {
       const nombre = document.getElementById("nombre").value.trim();
       const grupo = document.getElementById("grupo").value.trim();
       const email = document.getElementById("email").value.trim();
 
-      let texto = `Reserva de merchandising\n\n`;
-      texto += `Nombre: ${nombre}\n`;
-      texto += `Grupo/Departamento: ${grupo || "-"}\n`;
-      texto += `Email: ${email || "-"}\n\n`;
-      texto += `Artículos:\n`;
+      if (!nombre) return alert("Pon al menos el nombre.");
+      if (carrito.length === 0) return alert("El carrito está vacío.");
 
-      carrito.forEach((item) => {
-        texto += `- ${item.nombre} | Talla: ${item.talla || "-"} | Color: ${item.color} | Cantidad: ${item.cantidad}\n`;
-      });
+      mensajeServidor.className = "mensaje";
+      mensajeServidor.textContent = "Enviando reserva...";
 
-      return texto;
-    }
+      try {
+        for (const item of carrito) {
+          const data = {
+            FechaHora: new Date().toISOString(),
+            Nombre: nombre,
+            Grupo: grupo,
+            Email: email,
+            Producto: item.nombre,
+            Talla: item.talla,
+            Color: item.color,
+            Cantidad: item.cantidad
+          };
 
-    function enviarReservaSimulada() {
-      const nombre = document.getElementById("nombre").value.trim();
+          await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+        }
 
-      if (!nombre) {
-        alert("Por favor, rellena al menos el nombre y apellidos.");
-        return;
+        mensajeServidor.textContent = "Reserva guardada en Google Sheets correctamente.";
+        mensajeServidor.className = "mensaje ok";
+
+        carrito = [];
+        pintarCarrito();
+
+      } catch (error) {
+        mensajeServidor.textContent = "Error al enviar: " + error;
+        mensajeServidor.className = "mensaje error";
       }
-      if (carrito.length === 0) {
-        alert("No hay productos en la reserva.");
-        return;
-      }
-
-      const resumen = generarResumenTexto();
-      console.log("RESERVA (simulación):\n" + resumen);
-
-      mensajeServidor.textContent =
-        "Reserva registrada en la página (simulación). Haz captura de pantalla o copia los datos si quieres guardarlos.";
-      mensajeServidor.className = "mensaje ok";
-
-      alert("Reserva simulada.\n\nLa reserva se ha mostrado en la consola del navegador (F12) y en la propia página.");
     }
 
     function limpiarTodo() {
-      if (!confirm("¿Seguro que quieres vaciar la selección?")) return;
       carrito = [];
       pintarCarrito();
       mensajeServidor.textContent = "";
-      mensajeServidor.className = "mensaje";
     }
 
-    // Inicialización
     pintarProductos();
     pintarCarrito();
-    btnEnviar.addEventListener("click", enviarReservaSimulada);
-    btnLimpiar.addEventListener("click", limpiarTodo);
 
-    window.agregarAlCarrito = agregarAlCarrito;
-    window.eliminarDelCarrito = eliminarDelCarrito;
+    btnEnviar.addEventListener("click", enviarReserva);
+    btnLimpiar.addEventListener("click", limpiarTodo);
   </script>
+
 </body>
 </html>
+
