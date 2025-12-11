@@ -208,7 +208,7 @@
     <div class="card">
       <div class="card-title">Cómo funciona</div>
       <div class="card-sub">
-        1. Rellena tus datos <br>
+        1. Rellena tu nombre y, si quieres, tu email <br>
         2. Añade productos al carrito <br>
         3. Envía tu reserva a Google Sheets
       </div>
@@ -217,7 +217,7 @@
 
   <main class="main">
 
-    <!-- Datos personales -->
+    <!-- Datos personales (SIN grupo) -->
     <section class="card">
       <div class="card-title">Tus datos</div>
       <div class="card-sub">Necesarios para identificar tu pedido</div>
@@ -226,11 +226,6 @@
         <div class="input-col">
           <label class="input-label">Nombre *</label>
           <input id="nombre" class="input-control" placeholder="Nombre y apellidos">
-        </div>
-
-        <div class="input-col">
-          <label class="input-label">Grupo / Curso</label>
-          <input id="grupo" class="input-control" placeholder="Ej.: 2ºESO A">
         </div>
       </div>
 
@@ -320,7 +315,7 @@
 
         card.innerHTML = `
           <div class="producto-img-wrapper">
-            <img src="${p.imagen}" class="producto-img">
+            <img src="${p.imagen}" class="producto-img" alt="${p.nombre}">
           </div>
           <div class="producto-body">
             <div class="producto-titulo">${p.nombre}</div>
@@ -418,8 +413,8 @@
 
     async function enviarReserva() {
       const nombre = document.getElementById("nombre").value.trim();
-      const grupo = document.getElementById("grupo").value.trim();
       const email = document.getElementById("email").value.trim();
+      const grupo = ""; // se mantiene vacío para no romper la hoja, pero no se usa
 
       if (!nombre) return alert("Pon al menos el nombre.");
       if (carrito.length === 0) return alert("El carrito está vacío.");
@@ -432,7 +427,7 @@
           const data = {
             FechaHora: new Date().toISOString(),
             Nombre: nombre,
-            Grupo: grupo,
+            Grupo: grupo,      // quedará vacío en la hoja
             Email: email,
             Producto: item.nombre,
             Talla: item.talla,
@@ -463,6 +458,7 @@
       carrito = [];
       pintarCarrito();
       mensajeServidor.textContent = "";
+      mensajeServidor.className = "mensaje";
     }
 
     pintarProductos();
@@ -474,4 +470,5 @@
 
 </body>
 </html>
+
 
