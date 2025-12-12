@@ -5,19 +5,17 @@
   <title>Reserva de Merchandising - Fiestas del pueblo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Tipografía similar a la del ejemplo -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      /* Paleta tipo Fartleck / trail */
+      /* Paleta tipo Fartleck */
       --color-fondo: #f5f5f5;
       --color-fondo-tarjeta: #ffffff;
       --color-borde-suave: #e0e0e0;
 
       --gris-oscuro: #1f1f1f;
       --gris-medio: #555555;
-      --gris-claro: #f5f5f5;
 
       --rojo-oscuro: #8b1d1d;
       --rojo: #b52b2b;
@@ -46,15 +44,15 @@
       flex-direction: column;
     }
 
-    /* NAVBAR SUPERIOR */
+    /* NAVBAR (más rojo, pero sin pasarse) */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 30;
-      background: #ffffff;
+      background: linear-gradient(135deg, rgba(181,43,43,0.18), rgba(139,29,29,0.10)), #ffffff;
       color: var(--gris-oscuro);
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-      border-bottom: 1px solid var(--color-borde-suave);
+      border-bottom: 1px solid rgba(181,43,43,0.35);
     }
 
     .navbar-inner {
@@ -103,8 +101,8 @@
     .navbar-pill {
       padding: 0.35rem 1rem;
       border-radius: var(--radius-full);
-      border: 1px solid var(--rojo);
-      background: #ffffff;
+      border: 1px solid rgba(181,43,43,0.55);
+      background: rgba(245,225,225,0.55);
       font-size: 0.75rem;
       display: flex;
       align-items: center;
@@ -265,12 +263,15 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
+      transition: transform 0.08s ease, opacity 0.08s ease;
     }
+
+    .btn:active { transform: translateY(1px); }
 
     .btn-primario {
       background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
       color: #ffffff;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.28);
     }
 
     .btn-secundario {
@@ -287,15 +288,11 @@
     .mensaje {
       margin-top: 0.6rem;
       font-size: 0.85rem;
+      line-height: 1.35;
     }
 
-    .mensaje.ok {
-      color: #1b7f3c;
-    }
-
-    .mensaje.error {
-      color: var(--rojo-oscuro);
-    }
+    .mensaje.ok { color: #1b7f3c; }
+    .mensaje.error { color: var(--rojo-oscuro); }
 
     /* PRODUCTOS */
     .productos-card {
@@ -332,7 +329,7 @@
       background: #ffffff;
       border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: 0 12px 26px rgba(0,0,0,0.18);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.14);
       border: 1px solid #e6dddd;
       display: flex;
       flex-direction: column;
@@ -447,9 +444,7 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
-      .main {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      .main { grid-template-columns: minmax(0, 1fr); }
     }
 
     @media (max-width: 600px) {
@@ -462,9 +457,8 @@
   </style>
 </head>
 
-<body class="paper-bg">
+<body>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="navbar-inner">
       <div class="brand">
@@ -481,10 +475,8 @@
     </div>
   </nav>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <main class="main">
 
-    <!-- Datos personales -->
     <section class="card">
       <div class="card-title">Tus datos</div>
       <div class="card-sub">
@@ -510,7 +502,6 @@
       </p>
     </section>
 
-    <!-- Carrito -->
     <section class="card">
       <div class="carrito-header">
         <div class="card-title">Resumen de tu reserva</div>
@@ -536,7 +527,6 @@
       </div>
     </section>
 
-    <!-- Catálogo de productos -->
     <section class="card productos-card">
       <div class="productos-header">
         <div class="productos-title">Catálogo de productos</div>
@@ -551,7 +541,6 @@
     Sistema de reservas de merchandising para las fiestas · Datos gestionados por la organización del pueblo.
   </footer>
 
-  <!-- JAVASCRIPT -->
   <script>
     const API_URL = "https://api.sheetmonkey.io/form/mzzHbz9dBwc4dwd6SUAshi";
 
@@ -598,6 +587,13 @@
     const btnEnviar = document.getElementById("btn-enviar-reserva");
     const btnLimpiar = document.getElementById("btn-limpiar");
     const carritoContador = document.getElementById("carrito-contador");
+
+    function setSendingState(isSending) {
+      btnEnviar.disabled = isSending;
+      btnLimpiar.disabled = isSending;
+      btnEnviar.style.opacity = isSending ? "0.7" : "1";
+      btnLimpiar.style.opacity = isSending ? "0.7" : "1";
+    }
 
     function actualizarContador() {
       const total = carrito.reduce((acc, item) => acc + Number(item.cantidad || 0), 0);
@@ -672,17 +668,12 @@
       const cantidadInput = document.getElementById(`cantidad-${id}`);
       const cantidad = parseInt(cantidadInput.value, 10) || 1;
 
-      const item = {
-        id,
-        nombre: producto.nombre,
-        talla,
-        color,
-        cantidad
-      };
+      const item = { id, nombre: producto.nombre, talla, color, cantidad };
 
       carrito.push(item);
       pintarCarrito();
       actualizarContador();
+
       mensajeServidor.textContent = "";
       mensajeServidor.className = "mensaje";
     }
@@ -725,7 +716,7 @@
     async function enviarReserva() {
       const nombre = document.getElementById("nombre").value.trim();
       const email = document.getElementById("email").value.trim();
-      const grupo = ""; // se mantiene vacío para compatibilidad con la hoja
+      const grupo = ""; // compatibilidad con la hoja
 
       if (!nombre) {
         alert("Por favor, indica al menos tu nombre.");
@@ -736,8 +727,9 @@
         return;
       }
 
-      mensajeServidor.textContent = "Enviando reserva...";
+      mensajeServidor.textContent = "Enviando tu reserva…";
       mensajeServidor.className = "mensaje";
+      setSendingState(true);
 
       try {
         for (const item of carrito) {
@@ -759,15 +751,24 @@
           });
         }
 
-        mensajeServidor.textContent = "Reserva guardada en Google Sheets correctamente.";
+        mensajeServidor.textContent =
+          "✅ Reserva registrada correctamente. ¡Gracias! La recogida y el pago se harán en persona durante las fiestas.";
         mensajeServidor.className = "mensaje ok";
 
         carrito = [];
         pintarCarrito();
         actualizarContador();
+
+        // Opcional: limpiar campos tras enviar
+        // document.getElementById("nombre").value = "";
+        // document.getElementById("email").value = "";
+
       } catch (error) {
-        mensajeServidor.textContent = "Error al enviar la reserva: " + error;
+        mensajeServidor.textContent =
+          "❌ No se ha podido registrar la reserva. Revisa tu conexión e inténtalo otra vez.";
         mensajeServidor.className = "mensaje error";
+      } finally {
+        setSendingState(false);
       }
     }
 
@@ -790,6 +791,4 @@
 
 </body>
 </html>
-
-
 
